@@ -1,9 +1,7 @@
-import 'package:chat_app1/auth/auth_gate.dart';
 import 'package:chat_app1/themes/light_mode.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-
-import 'auth/LogOrReg.dart';
+import 'Services/auth/auth_gate.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {

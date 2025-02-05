@@ -1,5 +1,9 @@
-import 'package:chat_app1/auth/auth_service.dart';
+import 'package:chat_app1/Services/chat/chat_service.dart';
+import 'package:chat_app1/component/userTile.dart';
 import 'package:flutter/material.dart';
+import '../Services/auth/auth_service.dart';
+import '../component/my_drawer.dart';
+import 'chat_page.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -10,24 +14,60 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
 
-   void logout(){
-      final _authService =  AuthService();
-      _authService.signOut();
-   }
+  final ChatService _chatService = ChatService();
+  final AuthService _authService = AuthService();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Home Page"),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        title: const Text("Home"),
         centerTitle: true,
-        actions: [
-          IconButton(
-              onPressed: logout,
-              icon:const Icon(Icons.logout)
-          )
-        ],
       ),
+      drawer: MyDrawer(),
+      body: _buildUserList(),
     );
+  }
+
+  Widget _buildUserList(){
+    return StreamBuilder(
+        stream: _chatService.getUserStream(),
+        builder: (context,snapshot){
+          if(snapshot.hasError){
+            return const Text("ERROR");
+          }
+          if(snapshot.connectionState == ConnectionState.waiting){
+            return const Text("Loading...");
+          }
+
+          return ListView(
+            children: snapshot.data!
+                .map<Widget>((userData) => _buildUserListItem(userData,context))
+                .toList()
+          );
+        }
+    );
+  }
+
+  Widget _buildUserListItem(Map<String,dynamic> userData, BuildContext context){
+     //display all user except your own
+    if(userData['email'] != _authService.getCurrentUser()!.email) {
+      return Usertile(
+        text: userData["name"],
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => ChatPage(
+                        recieverEmail: userData["name"],
+                      )));
+        },
+      );
+    }else{
+      return Container(
+
+      );
+    }
   }
 }
