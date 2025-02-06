@@ -1,6 +1,8 @@
 import 'package:chat_app1/Screens/SettingPage.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../Services/auth/auth_service.dart';
+import '../themes/theme_provider.dart';
 
 
 class MyDrawer extends StatelessWidget {
@@ -8,6 +10,8 @@ class MyDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    bool isDarkMode = Provider.of<ThemeProvider>(context).isDarkMode;
     return Drawer(
       backgroundColor: Theme.of(context).colorScheme.secondary,
       child: Column(
@@ -19,7 +23,7 @@ class MyDrawer extends StatelessWidget {
                   child: Center(
                     child: Icon(
                       Icons.message,
-                      color: Theme.of(context).colorScheme.primary,
+                      color: isDarkMode? Colors.white : Theme.of(context).colorScheme.primary,
                       size: 40,
                     ),
                   )
@@ -27,16 +31,16 @@ class MyDrawer extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(left: 25),
                 child: ListTile(
-                  title: const Text(
+                  title: Text(
                     "H O M E",
                     style: TextStyle(
-                      color: Colors.black,
+                      color: isDarkMode? Colors.white : Colors.black,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   leading: Icon(
                     Icons.home,
-                    color: Theme.of(context).colorScheme.primary,
+                    color: isDarkMode? Colors.white : Theme.of(context).colorScheme.primary,
                   ),
                   onTap: () {
                     Navigator.pop(context);
@@ -47,16 +51,16 @@ class MyDrawer extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(left: 25),
                 child: ListTile(
-                  title: const Text(
+                  title: Text(
                     "S E T T I N G",
                     style: TextStyle(
-                      color: Colors.black,
+                      color: isDarkMode? Colors.white : Colors.black,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   leading: Icon(
                     Icons.settings,
-                    color: Theme.of(context).colorScheme.primary,
+                    color: isDarkMode? Colors.white : Theme.of(context).colorScheme.primary,
                   ),
                   onTap: () {
                     Navigator.pop(context);
@@ -73,16 +77,16 @@ class MyDrawer extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: 25, bottom: 25),
             child: ListTile(
-              title: const Text(
+              title: Text(
                 "L O G O U T",
                 style: TextStyle(
-                  color: Colors.black,
+                  color: isDarkMode? Colors.white : Colors.black,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               leading: Icon(
                 Icons.logout,
-                color: Theme.of(context).colorScheme.primary,
+                color: isDarkMode? Colors.white : Theme.of(context).colorScheme.primary,
               ),
               onTap: () async {
                 final authService = AuthService();

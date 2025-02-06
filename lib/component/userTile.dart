@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../themes/theme_provider.dart';
 
 class Usertile extends StatelessWidget {
   final String text;
@@ -12,6 +15,9 @@ class Usertile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    bool isDarkMode = Provider.of<ThemeProvider>(context).isDarkMode;
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -25,14 +31,14 @@ class Usertile extends StatelessWidget {
           children: [
             Icon(
               Icons.people,
-              color: Theme.of(context).colorScheme.secondary,
+              color: isDarkMode? Colors.white : Colors.white,
               size: 30,
             ),
             const SizedBox(width: 12),
             Text(
               text,
               style: TextStyle(
-                color: Theme.of(context).colorScheme.secondary,
+                color: isDarkMode? Colors.white : Colors.white,
                 fontSize: 16
               )
             )
