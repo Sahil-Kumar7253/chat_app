@@ -1,4 +1,3 @@
-import 'package:chat_app1/themes/light_mode.dart';
 import 'package:chat_app1/themes/theme_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
