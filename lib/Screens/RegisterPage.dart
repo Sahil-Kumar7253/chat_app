@@ -15,11 +15,11 @@ class RegisterPage extends StatelessWidget {
   });
 
   void register(BuildContext context) async {
-    final _authService = AuthService();
+    final authService = AuthService();
 
     if (_passwordController.text == _cnfpasswordController.text) {
       try {
-        await _authService.signUpwithEmailPassword(
+        await authService.signUpwithEmailPassword(
             _emailController.text, _passwordController.text);
       } catch (e) {
         showDialog(

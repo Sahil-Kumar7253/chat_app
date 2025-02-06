@@ -25,7 +25,7 @@ class _HomepageState extends State<Homepage> {
         title: const Text("Home"),
         centerTitle: true,
       ),
-      drawer: MyDrawer(),
+      drawer: const MyDrawer(),
       body: _buildUserList(),
     );
   }
@@ -61,6 +61,7 @@ class _HomepageState extends State<Homepage> {
               MaterialPageRoute(
                   builder: (context) => ChatPage(
                         recieverEmail: userData["name"],
+                        recieverId: userData["uid"],
                       )));
         },
       );
